@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="./exchange.js"></script>
+    <script>
+
+        const datas = v_datas["rates"]
+        console.log(datas)
+
+        function make_nation_list(){
+            let nation_list = []
+            for(i in datas["2020-08-01"]){
+            nation_list.push(i)
+            }
+            return nation_list
+        }
+        // console.log(make_nation_list())
+
+        function get_datas(name){ 
+            let result = {}
+            var temp_list = []
+
+            for(date in datas){
+            var val = datas[date]
+            for(i in val){
+                if(i === name){
+                temp_list.push({
+                    "date": date,
+                    "price": val[i]
+                })
+                }
+            }
+            }
+            result = {
+            [name]: temp_list
+            }
+            return result
+        }
+        
+        function make_object(){
+            
+            let result = {}
+            let temp_list = make_nation_list()
+            var temp_object = {}
+            
+            for(i in temp_list){
+            temp_object = get_datas(temp_list[i])
+            var key = Object.keys(temp_object)
+            var val = Object.values(temp_object)
+            result[key] = val
+            }
+            return result
+        }
+        
+        let result = make_object()
+        console.log(result)
+        
+    </script>
+</body>
+</html>

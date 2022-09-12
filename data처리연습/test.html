@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const v_datas = {
+        "rates": {
+            "2020-08-01": {
+                "AED": 3.67,
+                "AFN": 76.56,
+                "ALL": 105.11,
+                "AMD": 480.75
+            },
+            "2020-08-02": {
+                "AED": 3.67,
+                "AFN": 76.68,
+                "ALL": 104.9,
+                "AMD": 481.4
+            },
+            "2020-08-03": {
+                "AED": 3.66,
+                "AFN": 76.57,
+                "ALL": 104.81,
+                "AMD": 480.01
+            }
+        }
+      };
+    </script>
+    <script>
+      
+      const datas = v_datas["rates"]
+      console.log(datas)
+      
+      function make_nation_list(){
+        let nation_list = []
+        for(i in datas["2020-08-01"]){
+          nation_list.push(i)
+        }
+        return nation_list
+      }
+      
+      function get_datas(name){ 
+        let result = {}
+        var temp_list = []
+
+        for(date in datas){
+          var val = datas[date]
+          for(i in val){
+            if(i === name){
+              temp_list.push({
+                "date": date,
+                "price": val[i]
+              })
+            }
+          }
+        }
+        result = {
+          [name]: temp_list
+        }
+        return result
+      }
+
+      function make_object(){
+        
+        let result = {}
+        let temp_list = make_nation_list()
+        var temp_object = {}
+        
+        for(i in temp_list){
+          temp_object = get_datas(temp_list[i])
+          var key = Object.keys(temp_object)
+          var val = Object.values(temp_object)
+          result[key] = val
+        }
+        return result
+      }
+      
+      let result = make_object()
+      console.log(result)
+
+    </script>
+  </body>
+</html>
